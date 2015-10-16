@@ -14,8 +14,7 @@ function get(username) {
           body = JSON.parse(body);
           printData(body.name, body.badges.length, body.points.JavaScript);
         } catch(error) {
-          //TODO: make erorr more user friendly
-          printError(error);
+          printError(error, "Error: Could not read profile data for " + username);
         }
       } else {
         printError({message: "Error getting profile for " + username + ". (" + http.STATUS_CODES[response.statusCode] + ")"});
@@ -23,7 +22,9 @@ function get(username) {
     });
   });
   
-  request.on('error', printError);
+  request.on('error', function(error) {
+    printError(error, "Error: Could not connect to server");
+  });
 }
 
 function printData(user, badges, points) {
@@ -31,7 +32,10 @@ function printData(user, badges, points) {
   console.log(message);
 }
 
-function printError(error) {
+function printError(error, explanation) {
+  if (explanation) {
+    error.message = explanation + " (" + error.message + ")";
+  }
   console.error(error.message);
 }
 
