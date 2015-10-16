@@ -1,8 +1,10 @@
 var profiles = require('./profiles');
 //profiles.get(process.argv[2]);
 
-var users = process.argv.slice(2);
-users.forEach(profiles.get);
+var users = process.argv.slice(3);
+var topic = process.argv[2];
+users.forEach(function(user) {
+  profiles.get(user, topic);
+});
 
-//TODO: accept different topic areas for gathering point data
 //TODO: put all printer functionality into its own module

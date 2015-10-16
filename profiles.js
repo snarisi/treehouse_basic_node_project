@@ -1,6 +1,6 @@
 var http = require('http');
 
-function get(username) {
+function get(username, topic) {
   var request = http.get("http://teamtreehouse.com/" + username + ".json", function(response) {
     var body = "";
 
@@ -12,7 +12,7 @@ function get(username) {
       if (response.statusCode === 200) {
         try {
           body = JSON.parse(body);
-          printData(body.name, body.badges.length, body.points.JavaScript);
+          printData(body.name, body.badges.length, body.points[topic], topic);
         } catch(error) {
           printError(error, "Error: Could not read profile data for " + username);
         }
@@ -27,8 +27,8 @@ function get(username) {
   });
 }
 
-function printData(user, badges, points) {
-  var message = user + " has " + badges + " total badge(s) and " + points + " points in JavaScript.";
+function printData(user, badges, points, topic) {
+  var message = user + " has " + badges + " total badge(s) and " + points + " points in " + topic + ".";
   console.log(message);
 }
 
