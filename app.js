@@ -1,2 +1,5 @@
 var profiles = require('./profiles');
-profiles.get("samuelnarisi");
+//profiles.get(process.argv[2]);
+
+var users = process.argv.slice(2);
+users.forEach(profiles.get);
