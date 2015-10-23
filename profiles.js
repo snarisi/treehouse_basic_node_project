@@ -1,8 +1,9 @@
 var http = require('http');
+var https = require('https');
 var printer = require('./printer');
 
 function get(username, topic) {
-  var request = http.get("http://teamtreehouse.com/" + username + ".json", function(response) {
+  var request = https.get("https://teamtreehouse.com/" + username + ".json", function(response) {
     var body = "";
 
     response.on('data', function(chunk) {
